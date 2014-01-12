@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 # py_arduino_07.py
 # 08-01-2014
-#
+# netbeans
 # Carica lo schema della tabella all' avvio.
 # Imposta i parametri della porta.
-#
+# gps
 # Larghezza colonne OK.
 # Importa le librerie necessarie.
 import sys
@@ -24,8 +24,8 @@ dati=[['A0','A1','A2','A3','A4','A5','A6','A7','A8','A9'],   #Sonda
 class Principale(QtGui.QMainWindow):
 	def __init__(self):
 		QtGui.QMainWindow.__init__(self)
-		self.ui =uic.loadUi('py_arduino_01a.ui', self) #Carica form.
-		self.ui.show()
+		self.ui =uic.loadUi('py_arduino_02a.ui', self) #Carica form.
+		#self.ui.show()
 		#Assegnazione eventi->azioni
 		self.connect(self.ui.pFine, QtCore.SIGNAL("clicked()"),
 			fine_sessione)
@@ -48,7 +48,7 @@ class Parametri(QtGui.QMainWindow):
 	def __init__(self):
 		QtGui.QMainWindow.__init__(self)
 		self.ui =uic.loadUi('py_arduino_02b.ui', self) #Carica form.
-		self.ui.show()
+		#self.ui.show()
 		#Assegnazione eventi->azioni
 		self.connect(self.ui.pOK_2, QtCore.SIGNAL("clicked()"),
 			Chiude_param)
@@ -70,15 +70,12 @@ def carica_tabella():
 #---Chiude il form dei parametri---------------------------------------
 def Chiude_param():
 	window_b.hide()
-	#window_a.ui.imPorta.setText(window_b.ui.n_porta.currentText())
-	#window_a.ui.imPorta=str(window_a.ui.imPorta)
-	window_a.ui.imPorta.setText(window_b.ui.n_porta.currentText()+','+\
-		window_b.ui.v_porta.currentText()+','+\
-		window_b.ui.p_porta.currentText())
-	window_a.ui.imPorta=str(window_a.ui.imPorta)
+	window_a.ui.imPorta.setText(window_b.ui.n_porta.currentText()+','+
+		window_b.ui.v_porta.currentText())
 	window_a.show()
 #---Apre il form dei parametri-----------------------------------------
 def Apre_param():
+	window_b.ui.show()
 	window_b.ui.n_porta.addItem("/dev/ttyACM0")
 	window_b.ui.n_porta.addItem("/dev/ttyACM1")
 	window_b.ui.n_porta.addItem("/dev/ttyUSB0")
@@ -88,13 +85,24 @@ def Apre_param():
 	window_b.ui.v_porta.addItem("38400")
 	window_b.ui.v_porta.addItem("57600")
 	window_b.ui.v_porta.addItem("115200")
-	window_b.show()
+	#window_b.show()
+
 #Apertura porta seriale
 def apertura_porta():
-	#arduino=serial.Serial(window_a.ui.imPorta.currentText())
-	arduino=serial.Serial(str(window_a.ui.imPorta),9600)
-	#arduino=serial.Serial(window_b.ui.n_porta,9600)
-	#arduino=serial.Serial('/dev/ttyACM0',9600)
+	print window_a.ui.imPorta.text() 
+	print
+	print
+	A_ser_port=str(window_b.ui.n_porta.currentText())
+	A_ser_vel=int(str(window_b.ui.v_porta.currentText()))
+	#A_ser_vel=9600
+	print A_ser_port
+	print A_ser_vel
+	
+	
+	arduino=serial.Serial(A_ser_port, A_ser_vel)
+
+	#arduino=serial.Serial("/dev/ttyACM0",9600)  #OK
+
 #---Fine lavoro, chiude tutto------------------------------------------
 def fine_sessione():
 	quit()
@@ -103,5 +111,5 @@ if __name__ == '__main__':
 	app = QtGui.QApplication(sys.argv)
 	window_a = Principale()
 	window_b = Parametri()
-	window_b.hide()
+	window_a.ui.show()
 	sys.exit(app.exec_())
