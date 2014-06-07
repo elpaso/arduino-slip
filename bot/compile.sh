@@ -1,0 +1,1 @@
+SOURCES="~/sketchbook/libraries/LiquidCrystal_I2C/FastIO.cpp ~/sketchbook/libraries/LiquidCrystal_I2C/LCD.cpp ~/sketchbook/libraries/LiquidCrystal_I2C/LiquidCrystal_SR.cpp" CPPFLAGS="-I ~/sketchbook/libraries/LiquidCrystal_I2C/"  make -f ../Makefile
