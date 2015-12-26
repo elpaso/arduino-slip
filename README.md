@@ -1,12 +1,9 @@
-arduino-slip
+Progetti Arduino Gruppo SLIP Pinerolo
 ============
-
-Progetti arduino SLIP 2014
 
 Sito di riferimento
 http://www.softwareliberopinerolo.org
 
-
-Esercizzi di PyQT per interfacciarsi con Arduino
+- Esercizi programmazione PyQT & Python per interfacciarsi con Arduino
 
 
